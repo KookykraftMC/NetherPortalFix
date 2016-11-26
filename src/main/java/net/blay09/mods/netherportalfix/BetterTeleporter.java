@@ -32,6 +32,10 @@ public class BetterTeleporter extends Teleporter {
     @Override
     public void placeInPortal(@Nonnull Entity entity, float rotationYaw) {
         if(entity instanceof EntityPlayer) {
+
+            //Blood magic sigils do not set the last portal pos so when players switch dimensions lastPortalPos is null.
+            if(entity.lastPortalPos == null) return;
+
             PortalPositionAndDimension from = new PortalPositionAndDimension(entity.lastPortalPos);
             super.placeInPortal(entity, rotationYaw);
             PortalPositionAndDimension to = new PortalPositionAndDimension(entity.getPosition());
